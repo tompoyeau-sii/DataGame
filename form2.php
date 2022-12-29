@@ -1,7 +1,12 @@
 <?php
 session_start();
 
-if (isset($_POST['next'])) {
+if (isset($_POST['next'])
+    && !empty($_POST['tal_q1'])
+    && !empty($_POST['tal_q2'])
+    && !empty($_POST['tal_q3'])
+
+) {
     foreach ($_POST as $key => $value) {
         $_SESSION['info'][$key] = $value;
     }

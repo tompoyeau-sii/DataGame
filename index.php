@@ -1,20 +1,24 @@
 <?php
 session_start();
+$_SESSION['erreur'] = "";
 
-if (isset($_POST['next']) && isset($_POST['prenom'])) {
+if (isset($_POST['next']) && !empty($_POST['prenom'])) {
   foreach ($_POST as $key => $value) {
     $_SESSION['info'][$key] = $value;
   }
   $keys = array_keys($_SESSION['info']);
   if (in_array('next', $keys)) {
-    unset($_SESSION['info']['next']); 
+    unset($_SESSION['info']['next']);
   }
   header("Location: form1.php");
+}
+if (empty($_POST['prenom'])) {
+  $_SESSION['erreur'] = "Veuillez complètez tous les champs";
 }
 ?>
 
 <!DOCTYPE html>
-<html style="height: 100%;" lang="en">
+<html style="height: 100%;" lang="fr">
 
 <head>
   <meta charset="UTF-8">
@@ -42,6 +46,7 @@ if (isset($_POST['next']) && isset($_POST['prenom'])) {
 
 <body>
   <div class="container">
+
     <div class="row">
       <div class="col-sm-9 text-light">
         <div class="row">
@@ -79,6 +84,7 @@ if (isset($_POST['next']) && isset($_POST['prenom'])) {
             <div class="col-sm-5 col-lg-4">
               <input style="color: #0059A3" type="prenom" class="form-control mt-2" id="prenom" name="prenom" placeholder="Prenom">
             </div>
+
             <div class="g-recaptcha pt-2" data-sitekey="6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7"></div>
             <div class="col-sm-4">
               <input class="btn btn-light mt-2" type="submit" name="next" value="Démarrer le test">
@@ -92,6 +98,9 @@ if (isset($_POST['next']) && isset($_POST['prenom'])) {
     </div>
   </div>
   </div>
+  <script>
+
+  </script>
 </body>
 
 </html>

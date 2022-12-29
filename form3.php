@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-if (isset($_POST['next'])) {
+if (isset($_POST['next'])
+    && !empty($_POST['sql_q1'])
+    && !empty($_POST['sql_q2'])
+    && !empty($_POST['sql_q3'])) {
     foreach ($_POST as $key => $value) {
         $_SESSION['info'][$key] = $value;
     }
@@ -41,7 +44,7 @@ if (isset($_POST['next'])) {
                 <h2>Partie 3 : SQL</h2>
                 <form class="text-center" action="" method="POST">
                     <div class="row">
-                    <h2>Question 1</h2>
+                        <h2>Question 1</h2>
                         <div class="col">
                             <label>Décrivez dans quels ordres les clauses suivantes sont exécutées :</label>
                             <ul>
@@ -58,7 +61,7 @@ if (isset($_POST['next'])) {
                         </div>
                     </div>
                     <div class="row">
-                    <h2>Question 2</h2>
+                        <h2>Question 2</h2>
                         <div class="p-2">
                             <label>
                                 Proposez une amélioration de cette requête
@@ -71,7 +74,7 @@ if (isset($_POST['next'])) {
                         </div>
                     </div>
                     <div class="row">
-                    <h2>Question 3</h2>
+                        <h2>Question 3</h2>
                         <div class="col">
                             <label>
                                 Un index a été positionné sur la colonne « year ».
