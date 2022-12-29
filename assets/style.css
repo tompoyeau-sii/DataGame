@@ -1,0 +1,41 @@
+#prenom::placeholder {
+  color: #0059a3;
+}
+
+h1 {
+  font-weight: 700 !important;
+}
+
+h2 {
+  font-weight: 600 !important;
+}
+
+body {
+  padding-top: 3em;
+  background: rgb(0, 89, 163);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 89, 163, 1) 0%,
+    rgba(83, 162, 218, 1) 100%
+  );
+  background-repeat: no-repeat;
+  height: 100%;
+  color: #fff;
+  font-family: "Lato", sans-serif;
+}
+
+.btn {
+  color: #0059a3 !important;
+  font-weight: 600 !important;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+textarea {
+  background-color: transparent !important;
+  color: white !important;
+  margin: 0.5rem !important;
+}
