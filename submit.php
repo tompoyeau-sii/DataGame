@@ -43,7 +43,7 @@ $source = chunk_split($source);
 $body .= $source;
 $body .= "n".'--'.$boundary.'--';
 
-
+// tests
 if(mail($to, $subject, $body, $entete)) 
     echo 'Mail envoyé a '. $to;
 else 
