@@ -1,10 +1,6 @@
 <?php 
 session_start();
 
-echo "<pre>";
-print_r($_SESSION['info']['prenom']);
-echo "</pre>";
-
 $txt = PHP_EOL.
 'Prenom : '.$_SESSION['info']['prenom'].PHP_EOL.
 'Première partie : Jeu de données '.PHP_EOL.
@@ -24,13 +20,31 @@ $txt = PHP_EOL.
 
 file_put_contents('./reponses/'.$_SESSION['info']['prenom'].'-'.date('d-m-Y'),$txt);
 
-$to = 'tompoyeau@gmail.com';
-$subject ='Réponse questionnaire candidat data';
-$message = 'test';
-$headers = "Content-Type: text/plain; charset=utf-8\r\n";
-$headers = 'From : tompoyeau@gmail.com';
+$to = 'tom.poyeau@sii.fr';
+$subject ='Réponse questionnaire candidat data de '.$_SESSION['info']['prenom'];
+$fichier = './reponses/'.$_SESSION['info']['prenom'].'-'.date('d-m-Y').".txt";
+$boundary = md5(uniqid(rand(), true));
+$entete = 'Content-Type: multipart/mixed;'."n".'boundary="'.$boundary.'"';
 
-if(mail($to, $subject, $message)) 
+$body = 'This is a multi-part message in MIME format.'."n";
+$body .= '--'.$boundary."n";
+$body .= 'Content-Type: text/html; charset="UTF-8"'."n";
+$body .= "n";
+$body .= 'Bonjour, Voici ci-joint les résultats du test du dernier candidat.';
+$body .= "n";
+$body .= '--'.$boundary."n";
+$body .= 'Content-Type: application/pdf; name="'.$fichier.'"'."n";
+$body .= 'Content-Transfer-Encoding: base64'."n";
+$body .= 'Content-Disposition: attachment; filename="'.$fichier.'"'."n";
+$body .= "n";
+$source = file_get_contents($fichier);
+$source = base64_encode($source);
+$source = chunk_split($source);
+$body .= $source;
+$body .= "n".'--'.$boundary.'--';
+
+
+if(mail($to, $subject, $body, $entete)) 
     echo 'Mail envoyé a '. $to;
 else 
 echo "Erreur d'envoi";
