@@ -1,17 +1,29 @@
 <?php
 session_start();
-$_SESSION['erreur'] = "";
 
-if (isset($_POST['next']) && !empty($_POST['prenom'])) {
-  foreach ($_POST as $key => $value) {
-    $_SESSION['info'][$key] = $value;
+require_once './recaptcha/autoload.php';
+if (isset($_POST['next']) && !empty($_POST['prenom'])){
+  if (isset($_POST['g-recaptcha-response'])) {
+    $recaptcha = new \ReCaptcha\ReCaptcha('6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw');
+    $resp = $recaptcha->setExpectedHostname('recaptcha-demo.appspot.com')
+      ->verify($_POST['g-recaptcha-response']);
+    if ($resp->isSuccess()) {
+      foreach ($_POST as $key => $value) {
+        $_SESSION['info'][$key] = $value;
+      }
+      $keys = array_keys($_SESSION['info']);
+      if (in_array('next', $keys)) {
+        unset($_SESSION['info']['next']);
+      }
+      header("Location: form1.php");
+    } else {
+
+    }
+  } else {
+    var_dump("Captcha non rempli");
   }
-  $keys = array_keys($_SESSION['info']);
-  if (in_array('next', $keys)) {
-    unset($_SESSION['info']['next']);
-  }
-  header("Location: form1.php");
 }
+
 if (empty($_POST['prenom'])) {
   $_SESSION['erreur'] = "Veuillez complètez tous les champs";
 }
@@ -82,7 +94,7 @@ if (empty($_POST['prenom'])) {
         <div class="row">
           <form action="" method="POST">
             <div class="col-sm-5 col-lg-4">
-              <input style="color: #0059A3" type="prenom" class="form-control mt-2" id="prenom" name="prenom" placeholder="Prenom">
+              <input style="color: #0059A3" type="prenom" required class="form-control mt-2" id="prenom" name="prenom" placeholder="Prenom">
             </div>
 
             <div class="g-recaptcha pt-2" data-sitekey="6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7"></div>
