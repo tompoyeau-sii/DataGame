@@ -2,7 +2,7 @@
 session_start();
 
 require_once './recaptcha/autoload.php';
-if (isset($_POST['next']) && !empty($_POST['prenom'])){
+if (isset($_POST['next']) && !empty($_POST['prenom'])) {
   if (isset($_POST['g-recaptcha-response'])) {
     $recaptcha = new \ReCaptcha\ReCaptcha('6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw');
     $resp = $recaptcha->setExpectedHostname('recaptcha-demo.appspot.com')
@@ -17,7 +17,8 @@ if (isset($_POST['next']) && !empty($_POST['prenom'])){
       }
       header("Location: form1.php");
     } else {
-
+      $errors = $resp->getErrorCodes();
+      var_dump($errors);
     }
   } else {
     var_dump("Captcha non rempli");

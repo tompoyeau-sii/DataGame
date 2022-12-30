@@ -1,10 +1,12 @@
 <?php
 session_start();
 
-if (isset($_POST['next'])
+if (
+    isset($_POST['next'])
     && !empty($_POST['sql_q1'])
     && !empty($_POST['sql_q2'])
-    && !empty($_POST['sql_q3'])) {
+    && !empty($_POST['sql_q3'])
+) {
     foreach ($_POST as $key => $value) {
         $_SESSION['info'][$key] = $value;
     }
@@ -61,10 +63,25 @@ if (isset($_POST['next'])
                         </div>
                     </div>
                     <div class="row">
+
                         <h2>Question 2</h2>
+                        On souhaite ici récupérer les noms les plus populaires dans les années 90 pour chaque état.
+                        Une requête première requête SQL fonctionnelle a été réalisée ci-dessous :
+                        <div class="col" style="text-align: left!important">
+                            SELECT sd.state, bn.year, bn.name<br>
+                            SUM(bn.num_babies) AS total<br>
+                            FROM baby_names bn<br>
+                            LEFT JOIN state_details sd<br>
+                            ON bn.state = sd.abbreviation<br>
+                            WHERE year BETWEEN 1990 AND 1999<br>
+                            GROUP BY sd.state, bn.year, bn.name<br>
+                            ORDER BY total DESC;<br>
+                        </div>
+
+
                         <div class="p-2">
                             <label>
-                                Proposez une amélioration de cette requête
+                                Proposez une amélioration de cette requête.
                                 On s’attachera tout particulièrement à la lisibilité, la performance et la réutilisabilité de votre solution.<br>
                                 Précisez si besoin la syntaxe choisie relative au RDBMS (exemple : PostgreSQL, Hive, SQL Server, MySQL, …)
                             </label>
