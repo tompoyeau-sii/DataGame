@@ -63,7 +63,6 @@ if (
                         </div>
                     </div>
                     <div class="row">
-
                         <h2>Question 2</h2>
                         On souhaite ici récupérer les noms les plus populaires dans les années 90 pour chaque état.
                         Une requête première requête SQL fonctionnelle a été réalisée ci-dessous :
@@ -77,8 +76,6 @@ if (
                             GROUP BY sd.state, bn.year, bn.name<br>
                             ORDER BY total DESC;<br>
                         </div>
-
-
                         <div class="p-2">
                             <label>
                                 Proposez une amélioration de cette requête.
@@ -115,7 +112,5 @@ if (
             </div>
         </div>
     </div>
-
 </body>
-
 </html>

@@ -43,10 +43,10 @@ $source = chunk_split($source);
 $body .= $source;
 $body .= "n" . '--' . $boundary . '--';
 
-// if (mail($to, $subject, $body, $entete))
-//     echo 'Mail envoyé a ' . $to;
-// else
-//     echo "Erreur d'envoi";
+ if (mail($to, $subject, $body, $entete))
+     echo 'Mail envoyé a ' . $to;
+ else
+     echo "Erreur d'envoi";
 ?>
 
 <!DOCTYPE html>
