@@ -1,13 +1,19 @@
 <?php
 session_start();
+$_SESSION['userToken'] =  "";
+$_SESSION['token'] = "tokendetest";
 
 require_once './recaptcha/autoload.php';
+//Vérification si le prénom n'est pas vide
 if (isset($_POST['next']) && !empty($_POST['prenom'])) {
-  if (isset($_POST['g-recaptcha-response'])) {
-    $recaptcha = new \ReCaptcha\ReCaptcha('6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw');
-    $resp = $recaptcha->setExpectedHostname('recaptcha-demo.appspot.com')
-      ->verify($_POST['g-recaptcha-response']);
-    if ($resp->isSuccess()) {
+  // Vérification du captcha
+  // if (isset($_POST['g-recaptcha-response'])) {
+  //   $recaptcha = new \ReCaptcha\ReCaptcha('6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw');
+  //   $resp = $recaptcha->setExpectedHostname('recaptcha-demo.appspot.com')
+  //     ->verify($_POST['g-recaptcha-response']);
+  //   Si le captcha est ok
+  //   if ($resp->isSuccess()) {
+
       foreach ($_POST as $key => $value) {
         $_SESSION['info'][$key] = $value;
       }
@@ -15,17 +21,18 @@ if (isset($_POST['next']) && !empty($_POST['prenom'])) {
       if (in_array('next', $keys)) {
         unset($_SESSION['info']['next']);
       }
-      header("Location: form1.php");
-    } else {
-      $errors = $resp->getErrorCodes();
-      var_dump($errors);
-    }
-  } else {
-    var_dump("Captcha non rempli");
-  }
-}
-
-if (empty($_POST['prenom'])) {
+      //  Assignation du token de la session
+      $_SESSION['userToken'] = $_SESSION['token'];
+      header("Location: donnees.php");
+      //Si le captcha est pas ok
+  //   } else {
+  //     $errors = $resp->getErrorCodes();
+  //     var_dump($errors);
+  //   }
+  // } else {
+  //   var_dump("Captcha non rempli");
+  // }
+} else {
   $_SESSION['erreur'] = "Veuillez complètez tous les champs";
 }
 ?>

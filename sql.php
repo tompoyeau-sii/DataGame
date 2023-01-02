@@ -1,5 +1,10 @@
 <?php
 session_start();
+if ($_SESSION['userToken'] == $_SESSION['token']) {
+    $_SESSION['userToken'] =  "";
+} else {
+    header("Location: index.php");
+}
 
 if (
     isset($_POST['next'])
@@ -16,13 +21,13 @@ if (
     if (in_array('next', $keys)) {
         unset($_SESSION['info']['submit']);
     }
-
+    $_SESSION['userToken'] = $_SESSION['token'];
     header("Location: submit.php");
 }
 ?>
 
 <!DOCTYPE html>
-<html style="width:100%" lang="en">
+<html style="width:100%" lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -66,25 +71,15 @@ if (
                         <h2>Question 2</h2>
                         On souhaite ici récupérer les noms les plus populaires dans les années 90 pour chaque état.
                         Une requête première requête SQL fonctionnelle a été réalisée ci-dessous :
-                        <div class="col" style="text-align: left!important">
-                            SELECT sd.state, bn.year, bn.name<br>
-                            SUM(bn.num_babies) AS total<br>
-                            FROM baby_names bn<br>
-                            LEFT JOIN state_details sd<br>
-                            ON bn.state = sd.abbreviation<br>
-                            WHERE year BETWEEN 1990 AND 1999<br>
-                            GROUP BY sd.state, bn.year, bn.name<br>
-                            ORDER BY total DESC;<br>
-                        </div>
-                        <div class="p-2">
-                            <label>
-                                Proposez une amélioration de cette requête.
-                                On s’attachera tout particulièrement à la lisibilité, la performance et la réutilisabilité de votre solution.<br>
-                                Précisez si besoin la syntaxe choisie relative au RDBMS (exemple : PostgreSQL, Hive, SQL Server, MySQL, …)
-                            </label>
-                            <div class="col">
-                                <textarea required class="form-control" name="sql_q2"></textarea>
-                            </div>
+                        <img src="./assets/sql_3.png" class="w-50 p-3" alt="Jeu de données">
+
+                        <label>
+                            Proposez une amélioration de cette requête.
+                            On s’attachera tout particulièrement à la lisibilité, la performance et la réutilisabilité de votre solution.<br>
+                            Précisez si besoin la syntaxe choisie relative au RDBMS (exemple : PostgreSQL, Hive, SQL Server, MySQL, …)
+                        </label>
+                        <div class="col">
+                            <textarea required class="form-control" name="sql_q2"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -97,20 +92,21 @@ if (
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6 col-sm-12 p-2">
                             <img src="./assets/sql_1.png" class="w-50" alt="Jeu de données">
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6 col-sm-12 p-2">
                             <img src="./assets/sql_2.png" class="w-50" alt="Jeu de données">
                         </div>
                         <div class="col">
                             <textarea required class="form-control mt-2" name="sql_q3"></textarea>
                         </div>
                     </div>
-                    <input class="btn btn-light mt-2" type="submit" name="next" value="Terminer le test">
+                    <input class="btn btn-light mt-3 mb-3" type="submit" name="next" value="Terminer le test">
                 </form>
             </div>
         </div>
     </div>
 </body>
+
 </html>

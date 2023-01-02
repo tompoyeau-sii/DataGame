@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$_SESSION['userToken'] = "";
+$_SESSION['token'] = "null";
 $txt = PHP_EOL .
     'Prenom : ' . $_SESSION['info']['prenom'] . PHP_EOL .
     'Première partie : Jeu de données ' . PHP_EOL .
@@ -50,7 +51,7 @@ $body .= "n" . '--' . $boundary . '--';
 ?>
 
 <!DOCTYPE html>
-<html style="width:100%" lang="en">
+<html style="width:100%" lang="fr">
 
 <head>
     <meta charset="UTF-8">

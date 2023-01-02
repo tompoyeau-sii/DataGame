@@ -1,13 +1,12 @@
 <?php
 session_start();
-
-if (isset($_POST['next']) 
-    && !empty($_POST['jd_q1'])
-    && !empty($_POST['jd_q2'])
-    && !empty($_POST['jd_q3'])
-    && !empty($_POST['jd_q4'])
-    && !empty($_POST['jd_q5']))
-{
+if ($_SESSION['userToken'] == $_SESSION['token']) {
+    $_SESSION['userToken'] = "";
+} else {
+    echo "je suis dans le else";
+    header("Location: index.php");
+}
+if (isset($_POST['next']) && !empty($_POST['jd_q1']) && !empty($_POST['jd_q2']) && !empty($_POST['jd_q3']) && !empty($_POST['jd_q4']) && !empty($_POST['jd_q5'])) {
     foreach ($_POST as $key => $value) {
         $_SESSION['info'][$key] = $value;
     }
@@ -17,9 +16,10 @@ if (isset($_POST['next'])
     if (in_array('next', $keys)) {
         unset($_SESSION['info']['next']);
     }
-
-    header("Location: form2.php");
+    $_SESSION['userToken'] = $_SESSION['token'];
+    header("Location: talend.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +92,7 @@ if (isset($_POST['next'])
                             <textarea required class="form-control" rows="1" name="jd_q5"></textarea>
                         </div>
                     </div>
-                    <input class="btn btn-light mt-3" type="submit" name="next" value="Suivant">
+                    <input class="btn btn-light mt-3 mb-3" type="submit" name="next" value="Suivant">
                 </form>
             </div>
         </div>
