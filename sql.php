@@ -118,7 +118,11 @@ switch ($_SESSION['page']) {
                     <textarea required class="form-control mt-2" name="sql_q3"></textarea>
                 </div>
             </div>
-            <input class="btn btn-light mt-3 mb-3" type="submit" name="next" value="Terminer le test">
+            <div class="row text-center">
+                <div class="col">
+                    <input class="btn btn-primary mt-3 mb-3" type="submit" name="next" value="Terminer le test">
+                </div>
+            </div>
         </form>
     </div>
     <script src="lightbox2-2.11.3/dist/js/lightbox-plus-jquery.js"></script>
