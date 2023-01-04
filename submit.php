@@ -1,78 +1,89 @@
 <?php
 session_start();
-if($_SESSION['userToken'] == "") {
-    header("Location: index.php");
+
+switch ($_SESSION['page']) {
+    case "index":
+        header("Location: index.php");
+        break;
+    case "donnees":
+        header("Location: talend.php");
+        break;
+    case "talend":
+        header("Location: talend.php");
+        break;
+    case "sql":
+        header("Location: sql.php");
+        break;
+    case "submit":
+        $_SESSION['page'] = "index";
+        $_SESSION['token'] = "null";
+        $txt = PHP_EOL .
+            'Prenom : ' . $_SESSION['info']['prenom'] . PHP_EOL .
+            'Première partie : Jeu de données ' . PHP_EOL .
+            'Réponse 1 : ' . $_SESSION['info']['jd_q1'] . PHP_EOL .
+            'Réponse 2 : ' . $_SESSION['info']['jd_q2'] . PHP_EOL .
+            'Réponse 3 : ' . $_SESSION['info']['jd_q3'] . PHP_EOL .
+            'Réponse 4 : ' . $_SESSION['info']['jd_q4'] . PHP_EOL .
+            'Réponse 5 : ' . $_SESSION['info']['jd_q5'] . PHP_EOL . PHP_EOL .
+            'Partie 2 : Talend ' . PHP_EOL .
+            'Réponse 1 : ' . $_SESSION['info']['tal_q1'] . PHP_EOL .
+            'Réponse 2 : ' . $_SESSION['info']['tal_q2'] . PHP_EOL .
+            'Réponse 3 : ' . $_SESSION['info']['tal_q3'] . PHP_EOL . PHP_EOL .
+            'Partie 3 : SQL ' . PHP_EOL .
+            'Réponse 1 : ' . $_SESSION['info']['sql_q1'] . PHP_EOL .
+            'Réponse 2 : ' . $_SESSION['info']['sql_q2'] . PHP_EOL .
+            'Réponse 3 : ' . $_SESSION['info']['sql_q3'] . PHP_EOL;
+
+        file_put_contents('./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y'), $txt);
+
+        // $to = 'tom.poyeau@sii.fr';
+        // $subject = 'Réponse questionnaire candidat data de ' . $_SESSION['info']['prenom'];
+        // $fichier = './reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
+        // $boundary = md5(uniqid(rand(), true));
+        // $entete = 'Content-Type: multipart/mixed;' . "n" . 'boundary="' . $boundary . '"';
+
+        // $body = 'This is a multi-part message in MIME format.' . "n";
+        // $body .= '--' . $boundary . "n";
+        // $body .= 'Content-Type: text/html; charset="UTF-8"' . "n";
+        // $body .= "n";
+        // $body .= 'Bonjour, Voici ci-joint les résultats du test du dernier candidat.';
+        // $body .= "n";
+        // $body .= '--' . $boundary . "n";
+        // $body .= 'Content-Type: application/pdf; name="' . $fichier . '"' . "n";
+        // $body .= 'Content-Transfer-Encoding: base64' . "n";
+        // $body .= 'Content-Disposition: attachment; filename="' . $fichier . '"' . "n";
+        // $body .= "n";
+        // $source = file_get_contents($fichier);
+        // $source = base64_encode($source);
+        // $source = chunk_split($source);
+        // $body .= $source;
+        // $body .= "n" . '--' . $boundary . '--';
+        // mail($to, $subject, $body, $entete)
+
+        $to = "tom.poyeau@sii.fr";
+        $subject = "Sujet du message";
+        $message = "Corps du message";
+
+        $file = './reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
+        $file_name = $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
+
+        // Création du header de l'email
+        $header = "MIME-Version: 1.0\r\n";
+        $header .= "Content-type: text/html; charset=utf-8\r\n";
+
+        // Création du boundary (frontière)
+        $boundary = uniqid("np");
+
+        // Création du header de la pièce jointe
+        $attachment = chunk_split(base64_encode(file_get_contents($file)));
+        $header .= "Content-Type: application/octet-stream; name=\"$file_name\"\r\n";
+        $header .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
+        $header .= "Content-Transfer-Encoding: base64\r\n";
+        $header .= "X-Attachment-Id: " . rand(1000, 9000) . "\r\n\r\n";
+
+        // Envoi du mail
+        mail($to, $subject, $message, $header);
 }
-$_SESSION['userToken'] = "";
-$_SESSION['token'] = "null";
-$txt = PHP_EOL .
-    'Prenom : ' . $_SESSION['info']['prenom'] . PHP_EOL .
-    'Première partie : Jeu de données ' . PHP_EOL .
-    'Réponse 1 : ' . $_SESSION['info']['jd_q1'] . PHP_EOL .
-    'Réponse 2 : ' . $_SESSION['info']['jd_q2'] . PHP_EOL .
-    'Réponse 3 : ' . $_SESSION['info']['jd_q3'] . PHP_EOL .
-    'Réponse 4 : ' . $_SESSION['info']['jd_q4'] . PHP_EOL .
-    'Réponse 5 : ' . $_SESSION['info']['jd_q5'] . PHP_EOL . PHP_EOL .
-    'Partie 2 : Talend ' . PHP_EOL .
-    'Réponse 1 : ' . $_SESSION['info']['tal_q1'] . PHP_EOL .
-    'Réponse 2 : ' . $_SESSION['info']['tal_q2'] . PHP_EOL .
-    'Réponse 3 : ' . $_SESSION['info']['tal_q3'] . PHP_EOL . PHP_EOL .
-    'Partie 3 : SQL ' . PHP_EOL .
-    'Réponse 1 : ' . $_SESSION['info']['sql_q1'] . PHP_EOL .
-    'Réponse 2 : ' . $_SESSION['info']['sql_q2'] . PHP_EOL .
-    'Réponse 3 : ' . $_SESSION['info']['sql_q3'] . PHP_EOL;
-
-file_put_contents('./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y'), $txt);
-
-// $to = 'tom.poyeau@sii.fr';
-// $subject = 'Réponse questionnaire candidat data de ' . $_SESSION['info']['prenom'];
-// $fichier = './reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
-// $boundary = md5(uniqid(rand(), true));
-// $entete = 'Content-Type: multipart/mixed;' . "n" . 'boundary="' . $boundary . '"';
-
-// $body = 'This is a multi-part message in MIME format.' . "n";
-// $body .= '--' . $boundary . "n";
-// $body .= 'Content-Type: text/html; charset="UTF-8"' . "n";
-// $body .= "n";
-// $body .= 'Bonjour, Voici ci-joint les résultats du test du dernier candidat.';
-// $body .= "n";
-// $body .= '--' . $boundary . "n";
-// $body .= 'Content-Type: application/pdf; name="' . $fichier . '"' . "n";
-// $body .= 'Content-Transfer-Encoding: base64' . "n";
-// $body .= 'Content-Disposition: attachment; filename="' . $fichier . '"' . "n";
-// $body .= "n";
-// $source = file_get_contents($fichier);
-// $source = base64_encode($source);
-// $source = chunk_split($source);
-// $body .= $source;
-// $body .= "n" . '--' . $boundary . '--';
-// mail($to, $subject, $body, $entete)
-
-$to = "tom.poyeau@sii.fr";
-$subject = "Sujet du message";
-$message = "Corps du message";
-
-$file ='./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
-$file_name = $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
-
-// Création du header de l'email
-$header = "MIME-Version: 1.0\r\n";
-$header .= "Content-type: text/html; charset=utf-8\r\n";
-
-// Création du boundary (frontière)
-$boundary = uniqid("np");
-
-// Création du header de la pièce jointe
-$attachment = chunk_split(base64_encode(file_get_contents($file)));
-$header .= "Content-Type: application/octet-stream; name=\"$file_name\"\r\n";
-$header .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
-$header .= "Content-Transfer-Encoding: base64\r\n";
-$header .= "X-Attachment-Id: ".rand(1000,9000)."\r\n\r\n";
-
-// Envoi du mail
-mail($to, $subject, $message, $header);
-
-
 ?>
 
 

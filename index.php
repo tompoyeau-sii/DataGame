@@ -1,40 +1,63 @@
 <?php
 session_start();
-$_SESSION['token'] = "tokendetest";
-$_SESSION['userToken'] =  "";
-$public = "6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7";
-$secret = "6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw";
-require_once './recaptcha/autoload.php';
-//Vérification si le prénom n'est pas vide
-if (isset($_POST['next']) && !empty($_POST['prenom'])) {
-  // Vérification du captcha
-  if (isset($_POST['g-recaptcha-response'])) {
-    $recaptcha = new \ReCaptcha\ReCaptcha($secret);
-    $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
-    //   Si le captcha est ok
-    if ($resp->isSuccess()) {
 
-      foreach ($_POST as $key => $value) {
-        $_SESSION['info'][$key] = $value;
+switch ($_SESSION['page']) {
+  case "index":
+    $_SESSION['page'] = "index";
+    $public = "6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7";
+    $secret = "6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw";
+    require_once './recaptcha/autoload.php';
+    //Vérification si le prénom n'est pas vide
+    if (isset($_POST['next'])) {
+      if (!empty($_POST['prenom'])) {
+        // Vérification du captcha
+        if (isset($_POST['g-recaptcha-response'])) {
+          $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+          $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
+          //   Si le captcha est ok
+          if ($resp->isSuccess()) {
+
+            foreach ($_POST as $key => $value) {
+              $_SESSION['info'][$key] = $value;
+            }
+            $keys = array_keys($_SESSION['info']);
+            if (in_array('next', $keys)) {
+              unset($_SESSION['info']['next']);
+            }
+            //  Assignation du token de la session
+            // $_SESSION['userToken'] = $_SESSION['token'];
+            $_SESSION['page'] = "donnees";
+            header("Location: donnees.php");
+            //Si le captcha est pas ok
+          } else {
+            $_SESSION['erreur'] = "Le captcha n'est pas valide";
+          }
+        } else {
+          $_SESSION['erreur'] = "Le captcha n'est rempli";
+        }
+      } else {
+        $_SESSION['erreur'] = "Veuillez complèter tous les champs";
       }
-      $keys = array_keys($_SESSION['info']);
-      if (in_array('next', $keys)) {
-        unset($_SESSION['info']['next']);
-      }
-      //  Assignation du token de la session
-      $_SESSION['userToken'] = $_SESSION['token'];
-      header("Location: donnees.php");
-      //Si le captcha est pas ok
-    } else {
-      $errors = $resp->getErrorCodes();
-      var_dump($errors);
     }
-  } else {
-    var_dump("Captcha non rempli");
-  }
-} else {
-  $_SESSION['erreur'] = "Veuillez complètez tous les champs";
+    break;
+  case "donnees":
+    // $_SESSION['userToken'] = "";
+    header("Location: donnees.php");
+    break;
+  case "talend":
+    header("Location: talend.php");
+    break;
+  case "sql":
+    header("Location: sql.php");
+    break;
+  default:
+    header("Location: index.php");
+    $_SESSION['page'] = "index";
 }
+
+// $_SESSION['token'] = "tokendetest";
+// $_SESSION['userToken'] =  "";
+
 ?>
 
 <!DOCTYPE html>
@@ -100,14 +123,17 @@ if (isset($_POST['next']) && !empty($_POST['prenom'])) {
         <p style="font-weight: bold; font-size:large">Lorsque vous êtes prêt, entrez votre prénom et démarrez le test !</p>
         <div class="row">
           <form action="" method="POST">
+
             <div class="col-sm-5 col-lg-4">
               <input style="color: #0059A3" type="prenom" required class="form-control mt-2" id="prenom" name="prenom" placeholder="Prenom">
             </div>
 
             <div class="g-recaptcha pt-2" data-sitekey="6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7"></div>
+
             <div class="col-sm-4">
               <input class="btn btn-light mt-2" type="submit" name="next" value="Démarrer le test">
             </div>
+
           </form>
         </div>
       </div>

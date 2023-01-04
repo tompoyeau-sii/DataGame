@@ -1,21 +1,39 @@
 <?php
 session_start();
-if ($_SESSION['userToken'] == "") {
-    header("Location: index.php");
-}
-$_SESSION['userToken'] = "";
+// if ($_SESSION['userToken'] == "") {
+//     header("Location: index.php");
+// }
 
-if (isset($_POST['next']) && !empty($_POST['jd_q1']) && !empty($_POST['jd_q2']) && !empty($_POST['jd_q3']) && !empty($_POST['jd_q4']) && !empty($_POST['jd_q5'])) {
-    foreach ($_POST as $key => $value) {
-        $_SESSION['info'][$key] = $value;
-    }
-    $keys = array_keys($_SESSION['info']);
-    if (in_array('next', $keys)) {
-        unset($_SESSION['info']['next']);
-    }
-    $_SESSION['userToken'] = $_SESSION['token'];
-    header("Location: talend.php");
+
+switch ($_SESSION['page']) {
+    case "index":
+        header("Location: index.php");
+        break;
+    case "donnees":
+        // $_SESSION['userToken'] = "";
+        if (isset($_POST['next']) && !empty($_POST['jd_q1']) && !empty($_POST['jd_q2']) && !empty($_POST['jd_q3']) && !empty($_POST['jd_q4']) && !empty($_POST['jd_q5'])) {
+            foreach ($_POST as $key => $value) {
+                $_SESSION['info'][$key] = $value;
+            }
+            $keys = array_keys($_SESSION['info']);
+            if (in_array('next', $keys)) {
+                unset($_SESSION['info']['next']);
+            }
+            // $_SESSION['userToken'] = $_SESSION['token'];
+            $_SESSION['page'] = "talend";
+            header("Location: talend.php");
+        }
+        break;
+    case "talend":
+        header("Location: talend.php");
+        break;
+    case "sql":
+        header("Location: sql.php");
+        break;
+    default:
+        header("Location: index.php");
 }
+
 
 ?>
 
