@@ -1,14 +1,9 @@
 <?php
 session_start();
-if (!$_SESSION['userToken'] == "") {
-    $_SESSION['tokenPage'] = $_SESSION['userToken'];
-}
-
-if ($_SESSION['tokenPage'] == $_SESSION['token']) {
-    $_SESSION['userToken'] = "";
-} else {
+if ($_SESSION['userToken'] == "") {
     header("Location: index.php");
 }
+$_SESSION['userToken'] = "";
 if (
     isset($_POST['next'])
     && !empty($_POST['sql_q1'])

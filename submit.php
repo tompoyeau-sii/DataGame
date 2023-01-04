@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION['userToken'] == "") {
+    header("Location: index.php");
+}
 $_SESSION['userToken'] = "";
 $_SESSION['token'] = "null";
 $txt = PHP_EOL .

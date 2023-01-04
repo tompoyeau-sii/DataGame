@@ -1,14 +1,9 @@
 <?php
 session_start();
-if (!$_SESSION['userToken'] == "") {
-    $_SESSION['tokenPage'] = $_SESSION['userToken'];
-}
-
-if ($_SESSION['tokenPage'] == $_SESSION['token']) {
-    $_SESSION['userToken'] = "";
-} else {
+if ($_SESSION['userToken'] == "") {
     header("Location: index.php");
 }
+$_SESSION['userToken'] = "";
 
 if (isset($_POST['next']) && !empty($_POST['jd_q1']) && !empty($_POST['jd_q2']) && !empty($_POST['jd_q3']) && !empty($_POST['jd_q4']) && !empty($_POST['jd_q5'])) {
     foreach ($_POST as $key => $value) {
