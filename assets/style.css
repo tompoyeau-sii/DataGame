@@ -13,19 +13,11 @@ h2 {
 body {
   margin: 0;
   padding-top: 3em;
-  background: rgb(0, 89, 163);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 89, 163, 1) 0%,
-    rgba(83, 162, 218, 1) 100%
-  );
-  background-repeat: no-repeat;
-  color: #fff;
   font-family: "Lato", sans-serif;
+  color: #000;
 }
 
 .btn {
-  color: #0059a3 !important;
   font-weight: 600 !important;
 }
 

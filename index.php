@@ -1,18 +1,18 @@
 <?php
 session_start();
-$_SESSION['userToken'] =  "";
 $_SESSION['token'] = "tokendetest";
-
+$_SESSION['userToken'] =  "";
+$public = "6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7";
+$secret = "6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw";
 require_once './recaptcha/autoload.php';
 //Vérification si le prénom n'est pas vide
 if (isset($_POST['next']) && !empty($_POST['prenom'])) {
   // Vérification du captcha
-  // if (isset($_POST['g-recaptcha-response'])) {
-  //   $recaptcha = new \ReCaptcha\ReCaptcha('6LfHbJ8jAAAAAAEIFj__-ODXLOeAbwie7x5cerVw');
-  //   $resp = $recaptcha->setExpectedHostname('recaptcha-demo.appspot.com')
-  //     ->verify($_POST['g-recaptcha-response']);
-  //   Si le captcha est ok
-  //   if ($resp->isSuccess()) {
+  if (isset($_POST['g-recaptcha-response'])) {
+    $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+    $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
+    //   Si le captcha est ok
+    if ($resp->isSuccess()) {
 
       foreach ($_POST as $key => $value) {
         $_SESSION['info'][$key] = $value;
@@ -25,13 +25,13 @@ if (isset($_POST['next']) && !empty($_POST['prenom'])) {
       $_SESSION['userToken'] = $_SESSION['token'];
       header("Location: donnees.php");
       //Si le captcha est pas ok
-  //   } else {
-  //     $errors = $resp->getErrorCodes();
-  //     var_dump($errors);
-  //   }
-  // } else {
-  //   var_dump("Captcha non rempli");
-  // }
+    } else {
+      $errors = $resp->getErrorCodes();
+      var_dump($errors);
+    }
+  } else {
+    var_dump("Captcha non rempli");
+  }
 } else {
   $_SESSION['erreur'] = "Veuillez complètez tous les champs";
 }
@@ -55,7 +55,7 @@ if (isset($_POST['next']) && !empty($_POST['prenom'])) {
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     grecaptcha.ready(() => {
-      grecaptcha.execute('6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7', {
+      grecaptcha.execute($public, {
         action: 'contact'
       }).then(token => {
         document.querySelector('#recaptchaResponse').value = token;
@@ -65,8 +65,7 @@ if (isset($_POST['next']) && !empty($_POST['prenom'])) {
 </head>
 
 <body>
-  <div class="container">
-
+  <div class="container bg-primary p-3 rounded-3">
     <div class="row">
       <div class="col-sm-9 text-light">
         <div class="row">

@@ -21,34 +21,57 @@ $txt = PHP_EOL .
 
 file_put_contents('./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y'), $txt);
 
-$to = 'tom.poyeau@sii.fr';
-$subject = 'Réponse questionnaire candidat data de ' . $_SESSION['info']['prenom'];
-$fichier = './reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
-$boundary = md5(uniqid(rand(), true));
-$entete = 'Content-Type: multipart/mixed;' . "n" . 'boundary="' . $boundary . '"';
+// $to = 'tom.poyeau@sii.fr';
+// $subject = 'Réponse questionnaire candidat data de ' . $_SESSION['info']['prenom'];
+// $fichier = './reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
+// $boundary = md5(uniqid(rand(), true));
+// $entete = 'Content-Type: multipart/mixed;' . "n" . 'boundary="' . $boundary . '"';
 
-$body = 'This is a multi-part message in MIME format.' . "n";
-$body .= '--' . $boundary . "n";
-$body .= 'Content-Type: text/html; charset="UTF-8"' . "n";
-$body .= "n";
-$body .= 'Bonjour, Voici ci-joint les résultats du test du dernier candidat.';
-$body .= "n";
-$body .= '--' . $boundary . "n";
-$body .= 'Content-Type: application/pdf; name="' . $fichier . '"' . "n";
-$body .= 'Content-Transfer-Encoding: base64' . "n";
-$body .= 'Content-Disposition: attachment; filename="' . $fichier . '"' . "n";
-$body .= "n";
-$source = file_get_contents($fichier);
-$source = base64_encode($source);
-$source = chunk_split($source);
-$body .= $source;
-$body .= "n" . '--' . $boundary . '--';
+// $body = 'This is a multi-part message in MIME format.' . "n";
+// $body .= '--' . $boundary . "n";
+// $body .= 'Content-Type: text/html; charset="UTF-8"' . "n";
+// $body .= "n";
+// $body .= 'Bonjour, Voici ci-joint les résultats du test du dernier candidat.';
+// $body .= "n";
+// $body .= '--' . $boundary . "n";
+// $body .= 'Content-Type: application/pdf; name="' . $fichier . '"' . "n";
+// $body .= 'Content-Transfer-Encoding: base64' . "n";
+// $body .= 'Content-Disposition: attachment; filename="' . $fichier . '"' . "n";
+// $body .= "n";
+// $source = file_get_contents($fichier);
+// $source = base64_encode($source);
+// $source = chunk_split($source);
+// $body .= $source;
+// $body .= "n" . '--' . $boundary . '--';
+// mail($to, $subject, $body, $entete)
 
- if (mail($to, $subject, $body, $entete))
-     echo 'Mail envoyé a ' . $to;
- else
-     echo "Erreur d'envoi";
+$to = "tom.poyeau@sii.fr";
+$subject = "Sujet du message";
+$message = "Corps du message";
+
+$file ='./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
+$file_name = $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt";
+
+// Création du header de l'email
+$header = "MIME-Version: 1.0\r\n";
+$header .= "Content-type: text/html; charset=utf-8\r\n";
+
+// Création du boundary (frontière)
+$boundary = uniqid("np");
+
+// Création du header de la pièce jointe
+$attachment = chunk_split(base64_encode(file_get_contents($file)));
+$header .= "Content-Type: application/octet-stream; name=\"$file_name\"\r\n";
+$header .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
+$header .= "Content-Transfer-Encoding: base64\r\n";
+$header .= "X-Attachment-Id: ".rand(1000,9000)."\r\n\r\n";
+
+// Envoi du mail
+mail($to, $subject, $message, $header);
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html style="width:100%" lang="fr">
@@ -69,7 +92,7 @@ $body .= "n" . '--' . $boundary . '--';
 
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row text-light bg-primary rounded-3 m-3 p-3">
             <div class="col-sm-9 text-light">
                 <div class="row">
                     <div class="col">
@@ -81,12 +104,12 @@ $body .= "n" . '--' . $boundary . '--';
                 <div class="row">
                     <div class="col">
                         <p>
-                            Merci ! Vous avez terminé le test. Vos résultats ont était envoyés à nos collaborateurs vont feront un retour dans les prochains jours.
+                            Merci ! Vous avez terminé le test. Vos résultats nous ont était envoyés et nous vous feront un retour dans les prochains jours.
                         </p>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <img src="./assets/img2.png" alt="Image de synthése" />
+                    <div class="col-sm-3">
+                        <img src="./assets/img2.png" alt="Image de synthése" />
+                    </div>
                 </div>
             </div>
         </div>
