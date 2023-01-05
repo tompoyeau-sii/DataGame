@@ -1,8 +1,5 @@
 <?php
 session_start();
-// if ($_SESSION['userToken'] == "") {
-//     header("Location: index.php");
-// }
 switch ($_SESSION['page']) {
     case "index":
         header("Location: index.php");
@@ -14,7 +11,6 @@ switch ($_SESSION['page']) {
         header("Location: talend.php");
         break;
     case "sql":
-        // $_SESSION['userToken'] = "";
         if (
             isset($_POST['next'])
             && !empty($_POST['sql_q1'])
@@ -81,7 +77,7 @@ switch ($_SESSION['page']) {
                         <li>ORDER BY - trie des colonnes</li>
                     </ul>
                     <div class="col">
-                        <textarea required class="form-control" name="sql_q1"></textarea>
+                        <textarea required class="form-control" rows="1" name="sql_q1"></textarea>
                     </div>
                 </div>
             </div>
@@ -97,7 +93,7 @@ switch ($_SESSION['page']) {
                     Précisez si besoin la syntaxe choisie relative au RDBMS (exemple : PostgreSQL, Hive, SQL Server, MySQL, …)
                 </label>
                 <div class="col">
-                    <textarea required class="form-control" name="sql_q2"></textarea>
+                    <textarea required class="form-control" rows="1" name="sql_q2"></textarea>
                 </div>
             </div>
             <div class="row text-light bg-primary rounded-3 m-3 p-3">
@@ -115,7 +111,7 @@ switch ($_SESSION['page']) {
                     </label>
                 </div>
                 <div class="col">
-                    <textarea required class="form-control mt-2" name="sql_q3"></textarea>
+                    <textarea required class="form-control mt-2" rows="1" name="sql_q3"></textarea>
                 </div>
             </div>
             <div class="row text-center">

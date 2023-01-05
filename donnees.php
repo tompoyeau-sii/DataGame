@@ -1,16 +1,11 @@
 <?php
 session_start();
-// if ($_SESSION['userToken'] == "") {
-//     header("Location: index.php");
-// }
-
 
 switch ($_SESSION['page']) {
     case "index":
         header("Location: index.php");
         break;
     case "donnees":
-        // $_SESSION['userToken'] = "";
         if (isset($_POST['next']) && !empty($_POST['jd_q1']) && !empty($_POST['jd_q2']) && !empty($_POST['jd_q3']) && !empty($_POST['jd_q4']) && !empty($_POST['jd_q5'])) {
             foreach ($_POST as $key => $value) {
                 $_SESSION['info'][$key] = $value;
@@ -19,7 +14,6 @@ switch ($_SESSION['page']) {
             if (in_array('next', $keys)) {
                 unset($_SESSION['info']['next']);
             }
-            // $_SESSION['userToken'] = $_SESSION['token'];
             $_SESSION['page'] = "talend";
             header("Location: talend.php");
         }

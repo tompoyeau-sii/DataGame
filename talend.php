@@ -1,10 +1,5 @@
 <?php
 session_start();
-// if ($_SESSION['userToken'] == "") {
-//     header("Location: index.php");
-// }
-
-
 
 switch ($_SESSION['page']) {
     case "index":
@@ -14,7 +9,6 @@ switch ($_SESSION['page']) {
         header("Location: donnees.php");
         break;
     case "talend":
-        // $_SESSION['userToken'] = "";
         if (
             isset($_POST['next'])
             && !empty($_POST['tal_q1'])
@@ -42,8 +36,6 @@ switch ($_SESSION['page']) {
     default:
         header("Location: index.php");
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +76,7 @@ switch ($_SESSION['page']) {
                     <h2>Question 1</h2>
                     <label>Au vu de ce sous job, quelles critiques peuvent être émises ?</label>
                     <div class="col">
-                        <textarea required class="form-control" name="tal_q1"></textarea>
+                        <textarea required class="form-control" rows="1" name="tal_q1"></textarea>
                     </div>
                 </div>
             </div>
@@ -93,7 +85,7 @@ switch ($_SESSION['page']) {
                 <div class="col">
                     <label>Avez-vous des pistes d’améliorations ? Lesquelles ?</label>
                     <div class="col">
-                        <textarea required class="form-control" name="tal_q2"></textarea>
+                        <textarea required class="form-control" rows="1" name="tal_q2"></textarea>
                     </div>
                 </div>
             </div>
@@ -101,11 +93,13 @@ switch ($_SESSION['page']) {
                 <div class="col">
                     <p>Zoomons sur le composant tMap_4 :</p>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-sm-9 col-lg-12">
                             <a tabindex="-1" href="./assets/talend_2.png" class="rounded-2" data-lightbox="image-1" data-title="tMap_4" alt="Talend Spark Batch">
                                 <img src="./assets/talend_2.png" class="mb-3" alt="Img tMap4">
                             </a>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12">
                             <a tabindex="-1" href="./assets/talend_3.png" class="rounded-2" data-lightbox="image-1" data-title="tMap_4" alt="Talend Spark Batch">
                                 <img src="./assets/talend_3.png" class="w-100 mb-3" alt="Img tMap4">
@@ -120,7 +114,7 @@ switch ($_SESSION['page']) {
                     <label>Quelles améliorations proposeriez-vous ?</label>
                 </div>
                 <div class="col-12">
-                    <textarea required class="form-control" name="tal_q3"></textarea>
+                    <textarea required class="form-control" rows="1" name="tal_q3"></textarea>
                 </div>
             </div>
             <div class="row text-center">

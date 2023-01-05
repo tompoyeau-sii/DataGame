@@ -25,7 +25,6 @@ switch ($_SESSION['page']) {
               unset($_SESSION['info']['next']);
             }
             //  Assignation du token de la session
-            // $_SESSION['userToken'] = $_SESSION['token'];
             $_SESSION['page'] = "donnees";
             header("Location: donnees.php");
             //Si le captcha est pas ok
@@ -54,10 +53,6 @@ switch ($_SESSION['page']) {
     header("Location: index.php");
     $_SESSION['page'] = "index";
 }
-
-// $_SESSION['token'] = "tokendetest";
-// $_SESSION['userToken'] =  "";
-
 ?>
 
 <!DOCTYPE html>
@@ -137,7 +132,7 @@ switch ($_SESSION['page']) {
           </form>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-3 col-md-3">
         <img src="./assets/img1.png" alt="Image de synthése" />
       </div>
     </div>
