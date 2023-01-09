@@ -83,9 +83,9 @@ switch ($_SESSION['page']) {
 </head>
 
 <body>
-  <div class="container bg-primary p-3 rounded-3">
+  <div class="container bg-primary p-3 mb-5 rounded-3">
     <div class="row">
-      <div class="col-sm-9 text-light">
+      <div class="col-sm-12 col-md-7 col-lg-8 text-light">
         <div class="row">
           <!-- <div class="col-lg-1 col-sm col-md">
             <img width="100%" src="./assets/sii.png" alt="Logo SII" />
@@ -119,8 +119,8 @@ switch ($_SESSION['page']) {
         <div class="row">
           <form action="" method="POST">
 
-            <div class="col-sm-5 col-lg-4">
-              <input style="color: #0059A3" type="prenom" required class="form-control mt-2" id="prenom" name="prenom" placeholder="Prenom">
+            <div class="col-sm-6 col-md-5 col-lg-4">
+              <input style="color: #0059A3" pattern="[a-zA-ZÀ-ÿ0-9 -]+" title="Seul le caractère suivant est autorisé pour ce champs: -" type="prenom" required class="form-control mt-2" id="prenom" name="prenom" placeholder="Prenom">
             </div>
 
             <div class="g-recaptcha pt-2" data-sitekey="6LfHbJ8jAAAAAJ66fXodkjhuhRqTCTqn9THitAa7"></div>
@@ -132,7 +132,7 @@ switch ($_SESSION['page']) {
           </form>
         </div>
       </div>
-      <div class="col-sm-3 col-md-3">
+      <div class="col-sm-3 col-md-3 col-lg-4">
         <img src="./assets/img1.png" alt="Image de synthése" />
       </div>
     </div>

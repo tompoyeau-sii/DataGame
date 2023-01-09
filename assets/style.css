@@ -31,3 +31,7 @@ textarea {
   color: white !important;
   margin: 0.5rem !important;
 }
+
+textarea::placeholder {
+  color: red!important;
+}

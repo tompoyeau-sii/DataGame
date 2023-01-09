@@ -27,115 +27,128 @@ switch ($_SESSION['page']) {
 
 
         $txt = PHP_EOL .
-            'Candidat : ' . $_SESSION['info']['prenom'] . PHP_EOL .
-            'Première partie : Jeu de données ' . PHP_EOL .
+            'Candidat : ' . $_SESSION['info']['prenom'] . PHP_EOL . PHP_EOL . PHP_EOL .
+            'Première partie : Jeu de données ' . PHP_EOL . PHP_EOL .
             'Question 1 : Que pensez-vous du choix d’une table Hbase pour le stockage des données Etats ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['jd_q1'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['jd_q1'] . PHP_EOL . PHP_EOL .
             'Question 2 : Outre le choix d’une table Hbase, la table state_details à pour rowKey la colonne « state ». Commenter ce choix. Quels sont les impacts de ce design de rowKey ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['jd_q2'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['jd_q2'] . PHP_EOL . PHP_EOL .
             'Question 3 : Définissez le phénomène de « hotspotting » ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['jd_q3'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['jd_q3'] . PHP_EOL . PHP_EOL .
             'Question 4 : Comment éviter ce phénomène de « hotspotting » ? (citez 3 techniques)' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['jd_q4'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['jd_q4'] . PHP_EOL . PHP_EOL .
             'Question 5 : Comment redéfiniriez-vous la rowKey ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['jd_q5'] . PHP_EOL . PHP_EOL .
-            'Partie 2 : Talend ' . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['jd_q5'] . PHP_EOL . PHP_EOL . PHP_EOL . PHP_EOL .
+            'Partie 2 : Talend ' . PHP_EOL . PHP_EOL .
             'Question 1 : Au vu de ce sous job, quelles critiques peuvent être émises ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['tal_q1'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['tal_q1'] . PHP_EOL . PHP_EOL .
             'Question 2 : Avez-vous des pistes d’améliorations ? Lesquelles ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['tal_q2'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['tal_q2'] . PHP_EOL . PHP_EOL .
             'Question 3 : Quelles améliorations proposeriez-vous ?' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['tal_q3'] . PHP_EOL . PHP_EOL .
-            'Partie 3 : SQL ' . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['tal_q3'] . PHP_EOL . PHP_EOL . PHP_EOL . PHP_EOL .
+            'Partie 3 : SQL ' . PHP_EOL . PHP_EOL .
             'Question 1 : Décrivez dans quels ordres les clauses suivantes sont exécutées' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['sql_q1'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['sql_q1'] . PHP_EOL . PHP_EOL .
             'Question 2 : Proposez une amélioration de cette requête.
             On s’attachera tout particulièrement à la lisibilité, la performance et la réutilisabilité de votre solution.<br>
             Précisez si besoin la syntaxe choisie relative au RDBMS (exemple : PostgreSQL, Hive, SQL Server, MySQL, …)' . PHP_EOL .
-            'Réponse : ' . $_SESSION['info']['sql_q2'] . PHP_EOL .
+            'Réponse : ' . $_SESSION['info']['sql_q2'] . PHP_EOL . PHP_EOL .
             'Question 3 : Laquelle des requêtes ci-dessus est la plus performante ? Pourquoi ?' . PHP_EOL .
             'Réponse : ' . $_SESSION['info']['sql_q3'] . PHP_EOL;
 
         file_put_contents('./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt", $txt);
 
-        $mail = 'tom.poyeau@sii.fr'; // Déclaration de l'adresse de destination.
-        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui présentent des bogues.
-        {
-            $passage_ligne = "\r\n";
-        } else {
-            $passage_ligne = "\n";
+        $mails = ["tom.poyeau@sii.fr", "louis.durampart@sii.fr"];
+        foreach ($mails as $personne) {
+            $mail = $personne; // Déclaration de l'adresse de destination.
+            if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui présentent des bogues.
+            {
+                $passage_ligne = "\r\n";
+            } else {
+                $passage_ligne = "\n";
+            }
+            //=====Déclaration des messages au format texte et au format HTML.
+            $message_txt = "Réponse d'un candidat";
+            $message_html = '
+                <p class=MsoNormal><b><face=Arial>
+                <h3 style="font-family:Arial;">Résultats du test passé par ' . $prenom . '</h3>
+                <p style="font-family:Arial;">
+                    ' . $prenom . ' a terminé le questionnaire DataTest. Ses résultats sont disponibles en pièce jointe de ce mail. 
+                </p><br>
+                <p style="font-family:Arial; color:red;">
+                    Ceci est un message automatique, merci de ne pas y répondre.
+                </p>
+                </font></b></p>
+                ';
+            //==========
+
+            //=====Lecture et mise en forme de la pièce jointe.
+            $fichier   = fopen("./reponses/" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt", "r");
+            $attachement = fread($fichier, filesize("./reponses/" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt"));
+            $attachement = chunk_split(base64_encode($attachement));
+            fclose($fichier);
+            //==========
+
+            //=====Création de la boundary.
+            $boundary = "-----=" . md5(rand());
+            $boundary_alt = "-----=" . md5(rand());
+            //==========
+
+            //=====Définition du sujet.
+            $sujet = "Resultats du test passe par " . $prenom;
+            //=========
+
+            //=====Création du header de l'e-mail.
+            $header = "From: \"DataTest by SII\"<noreply@datatest.sii-lemans.fr>" . $passage_ligne;
+            $header .= "Reply-to: \"DataTest by SII\" <noreply@datatest.sii-lemans.fr>" . $passage_ligne;
+            $header .= "MIME-Version: 1.0" . $passage_ligne . "Content-type: text/plain; charset=\"UTF-8\"" . $passage_ligne;
+            $header .= "Content-Type: multipart/mixed;" . $passage_ligne . " boundary=\"$boundary\"" . $passage_ligne;
+            //==========
+
+            //=====Création du message.
+            $message = $passage_ligne . "--" . $boundary . $passage_ligne;
+            $message .= "Content-Type: multipart/alternative;" . $passage_ligne . " boundary=\"$boundary_alt\"" . $passage_ligne;
+            $message .= $passage_ligne . "--" . $boundary_alt . $passage_ligne;
+            //=====Ajout du message au format texte.
+            $message .= "Content-Type: text/plain; charset=\"UTF-8\"" . $passage_ligne;
+            $message .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
+            $message .= $passage_ligne . $message_txt . $passage_ligne;
+            //==========
+
+            $message .= $passage_ligne . "--" . $boundary_alt . $passage_ligne;
+
+            //=====Ajout du message au format HTML.
+            $message .= "Content-Type: text/html; charset=\"UTF-8\"" . $passage_ligne;
+            $message .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
+            $message .= $passage_ligne . $message_html . $passage_ligne;
+            //==========
+
+            //=====On ferme la boundary alternative.
+            $message .= $passage_ligne . "--" . $boundary_alt . "--" . $passage_ligne;
+            //==========
+
+            $message .= $passage_ligne . "--" . $boundary . $passage_ligne;
+
+            //=====Ajout de la pièce jointe.
+            $message .= "Content-Type: text/txt; name=\"" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt\"" . $passage_ligne;
+            $message .= "Content-Transfer-Encoding: base64" . $passage_ligne;
+            $message .= "Content-Disposition: attachment; filename=\"" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt\"" . $passage_ligne;
+            $message .= $passage_ligne . $attachement . $passage_ligne . $passage_ligne;
+            $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
+            //==========
+            //=====Envoi de l'e-mail.
+            if(mail($mail, $sujet, $message, $header)) {
+                $content = "[" . date('d-m-Y H:i:s') . "] - " . "Les réponses de " . $prenom . "ont bien étaient envoyées à " . $mail . PHP_EOL;
+                file_put_contents("./logMail.txt", $content , FILE_APPEND);
+            } else {
+                $content = "[" . date('d-m-Y H:i:s') . "] - " . "Erreur lors de l'envoi des réponses de " . $prenom . " a " . $mail . PHP_EOL;
+                file_put_contents("./logMail.txt", $content , FILE_APPEND);
+            }
+
         }
-        //=====Déclaration des messages au format texte et au format HTML.
-        $message_txt = "Réponse d'un candidat";
-        $message_html = '
-        <p class=MsoNormal><b><face=Arial>
-        <h3 style="font-family:Arial;">Résultats du test passé par '. $prenom .'</h3>
-        <p style="font-family:Arial;">
-            ' . $prenom .' a terminé le questionnaire DataTest. Ses résultats sont disponibles en pièce jointe de ce mail. 
-        </p><br>
-        <p style="font-family:Arial; color:red;">
-            Ceci est un message automatique, merci de ne pas y répondre.
-        </p>
-        </font></b></p>
-        ';
-        //==========
-
-        //=====Lecture et mise en forme de la pièce jointe.
-        $fichier   = fopen("./reponses/" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt", "r");
-        $attachement = fread($fichier, filesize("./reponses/" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt"));
-        $attachement = chunk_split(base64_encode($attachement));
-        fclose($fichier);
-        //==========
-
-        //=====Création de la boundary.
-        $boundary = "-----=" . md5(rand());
-        $boundary_alt = "-----=" . md5(rand());
-        //==========
-
-        //=====Définition du sujet.
-        $sujet = "Résultats du test passé par " . $prenom;
-        //=========
-
-        //=====Création du header de l'e-mail.
-        $header = "From: \"DataTest by SII\"<noreply@datatest.sii-lemans.fr>" . $passage_ligne;
-        $header .= "Reply-to: \"DataTest by SII\" <noreply@datatest.sii-lemans.fr>" . $passage_ligne;
-        $header .= "MIME-Version: 1.0" . $passage_ligne . "Content-type: text/plain; charset=\"UTF-8\"" . $passage_ligne;
-        $header .= "Content-Type: multipart/mixed;" . $passage_ligne . " boundary=\"$boundary\"" . $passage_ligne;
-        //==========
-
-        //=====Création du message.
-        $message = $passage_ligne . "--" . $boundary . $passage_ligne;
-        $message .= "Content-Type: multipart/alternative;" . $passage_ligne . " boundary=\"$boundary_alt\"" . $passage_ligne;
-        $message .= $passage_ligne . "--" . $boundary_alt . $passage_ligne;
-        //=====Ajout du message au format texte.
-        $message .= "Content-Type: text/plain; charset=\"UTF-8\"" . $passage_ligne;
-        $message .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
-        $message .= $passage_ligne . $message_txt . $passage_ligne;
-        //==========
-
-        $message .= $passage_ligne . "--" . $boundary_alt . $passage_ligne;
-
-        //=====Ajout du message au format HTML.
-        $message .= "Content-Type: text/html; charset=\"UTF-8\"" . $passage_ligne;
-        $message .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
-        $message .= $passage_ligne . $message_html . $passage_ligne;
-        //==========
-
-        //=====On ferme la boundary alternative.
-        $message .= $passage_ligne . "--" . $boundary_alt . "--" . $passage_ligne;
-        //==========
-
-        $message .= $passage_ligne . "--" . $boundary . $passage_ligne;
-
-        //=====Ajout de la pièce jointe.
-        $message .= "Content-Type: text/txt; name=\"" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt\"" . $passage_ligne;
-        $message .= "Content-Transfer-Encoding: base64" . $passage_ligne;
-        $message .= "Content-Disposition: attachment; filename=\"" . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt\"" . $passage_ligne;
-        $message .= $passage_ligne . $attachement . $passage_ligne . $passage_ligne;
-        $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
-        //==========
-        //=====Envoi de l'e-mail.
-        mail($mail, $sujet, $message, $header);
+        break;
+    default:
+        header("Location: index.php");
 }
 ?>
 
@@ -171,7 +184,7 @@ switch ($_SESSION['page']) {
                 <div class="row">
                     <div class="col-lg-9">
                         <p>
-                            Vous avez terminé le test. Vos résultats nous ont était envoyés et nous vous feront un retour dans les prochains jours.
+                            Vous avez terminé le test. Vos résultats nous ont été envoyés et nous vous ferons un retour dans les prochains jours.
                         </p>
                         <div class="row">
                             <div class="col">

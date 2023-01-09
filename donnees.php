@@ -65,55 +65,94 @@ switch ($_SESSION['page']) {
                 </a>
             </div>
         </div>
-        <form action="" method="POST">
-
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light">
+        <form id="formDonnees" action="" method="POST">
+            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question1">
                 <h2>Question 1</h2>
                 <div class="col">
                     <label class="mb-2">Que pensez-vous du choix d’une table Hbase pour le stockage des données Etats ?</label>
-                    <textarea required class="form-control" rows="1" name="jd_q1"></textarea>
+                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q1" rows="1" name="jd_q1" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light">
+            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question2">
                 <h2>Question 2</h2>
                 <div class="class">
-                    <label class="mb-2">Outre le choix d’une table Hbase, la table state_details à pour rowKey la colonne « state ». Commenter ce choix. Quels sont les impacts de ce design de rowKey ?</label>
-                    <textarea required class="form-control" rows="1" name="jd_q2"></textarea>
+                    <label class="mb-2">Outre le choix d’une table Hbase, la table state_details à pour rowKey la colonne « state », commenter ce choix. Quels sont les impacts de ce design de rowKey ?</label>
+                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q2" rows="1" name="jd_q2"  pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light">
+            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question3">
                 <h2>Question 3</h2>
                 <div class="col">
                     <label class="mb-2">Définissez le phénomène de « hotspotting » ?</label>
-                    <textarea required class="form-control" rows="1" name="jd_q3"></textarea>
+                    <textarea oninput="autoGrow(this)" class=" holder form-control" id="jd_q3" rows="1" name="jd_q3"  pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light">
+            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question4">
                 <h2>Question 4</h2>
                 <div class="col">
                     <label class="mb-2">Comment éviter ce phénomène de « hotspotting » ? (citez 3 techniques)</label>
-                    <textarea required class="form-control" rows="1" name="jd_q4"></textarea>
+                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q4" rows="1" name="jd_q4" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light">
+            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question5">
                 <h2>Question 5</h2>
                 <div class="col">
                     <label class="mb-2">Comment redéfiniriez-vous la rowKey ?</label>
-                    <textarea required class="form-control" rows="1" name="jd_q5"></textarea>
+                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q5" rows="1" name="jd_q5"  pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <input class="btn btn-primary mt-3 mb-3" type="submit" name="next" value="Suivant">
+                    <input class="btn btn-primary mt-3 mb-3" type="submit" id="submit" name="next" value="Suivant">
                 </div>
             </div>
         </form>
     </div>
     <script src="lightbox2-2.11.3/dist/js/lightbox-plus-jquery.js"></script>
+    <script type="text/javascript">
+        console.log(document.getElementById("formDonnees"))
+        document.getElementById("formDonnees").addEventListener("submit", function(event) {
+            var jd_q1 = document.getElementById("jd_q1").value;
+            var jd_q2 = document.getElementById("jd_q2").value;
+            var jd_q3 = document.getElementById("jd_q3").value;
+            var jd_q4 = document.getElementById("jd_q4").value;
+            var jd_q5 = document.getElementById("jd_q5").value;
+            if (jd_q5 == "" || jd_q5 == null) {
+                document.getElementById("jd_q5").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question5").scrollIntoView();
+                event.preventDefault();
+            }
+            if (jd_q4 == "" || jd_q4 == null) {
+                document.getElementById("jd_q4").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question4").scrollIntoView();
+                event.preventDefault();
+            }
+            if (jd_q3 == "" || jd_q3 == null) {
+                document.getElementById("jd_q3").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question3").scrollIntoView();
+                event.preventDefault();
+            }
+            if (jd_q2 == "" || jd_q2 == null) {
+                document.getElementById("jd_q2").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question2").scrollIntoView();
+                event.preventDefault();
+            }
+            if (jd_q1 == "" || jd_q1 == null) {
+                document.getElementById("jd_q1").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question1").scrollIntoView();
+                event.preventDefault();
+            }
+        });
+
+        function autoGrow(element) {
+            element.style.height = "5px";
+            element.style.height = element.scrollHeight + "px";
+        }
+    </script>
 </body>
 
 </html>

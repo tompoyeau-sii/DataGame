@@ -63,8 +63,8 @@ switch ($_SESSION['page']) {
                 <h2>Partie 3 : SQL</h2>
             </div>
         </div>
-        <form action="" method="POST">
-            <div class="row text-light bg-primary rounded-3 m-3 p-3">
+        <form action="" id="formSQL" method="POST">
+            <div id="question1" class="row text-light bg-primary rounded-3 m-3 p-3">
                 <h2>Question 1</h2>
                 <div class="col">
                     <label>Décrivez dans quels ordres les clauses suivantes sont exécutées :</label>
@@ -77,51 +77,85 @@ switch ($_SESSION['page']) {
                         <li>ORDER BY - trie des colonnes</li>
                     </ul>
                     <div class="col">
-                        <textarea required class="form-control" rows="1" name="sql_q1"></textarea>
+                        <textarea oninput="autoGrow(this)" class=" form-control" rows="1" id="sql_q1" name="sql_q1" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                     </div>
                 </div>
             </div>
-            <div class="row text-light bg-primary rounded-3 m-3 p-3">
+            <div id=" question2" class="row text-light bg-primary rounded-3 m-3 p-3">
                 <h2>Question 2</h2>
                 On souhaite ici récupérer les noms les plus populaires dans les années 90 pour chaque état.
                 Une requête première requête SQL fonctionnelle a été réalisée ci-dessous :
-                <img src="./assets/sql_3.png" class="w-50 p-3" alt="Jeu de données">
-
+                <a tabindex="-1" href="./assets/sql_3.png" class="rounded-2" data-lightbox="image-1" data-title="Requêtes SQL" data-alt="Requêtes SQL">
+                    <img src="./assets/sql_3.png" class="w-50 p-3" alt="SQL">
+                </a>
                 <label>
                     Proposez une amélioration de cette requête.
                     On s’attachera tout particulièrement à la lisibilité, la performance et la réutilisabilité de votre solution.<br>
                     Précisez si besoin la syntaxe choisie relative au RDBMS (exemple : PostgreSQL, Hive, SQL Server, MySQL, …)
                 </label>
                 <div class="col">
-                    <textarea required class="form-control" rows="1" name="sql_q2"></textarea>
+                    <textarea oninput="autoGrow(this)" class="form-control" rows="1" name="sql_q2" id="sql_q2" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
+                    </div>
+                </div>
+                <div id="question3" class="row text-light bg-primary rounded-3 m-3 p-3">
+                    <h2>Question 3</h2>
+                    <div class="col-md-6 col-sm-12 p-2">
+                        <a tabindex="-1" href="./assets/sql_1.png" class="w-50 rounded-2" data-lightbox="image-1" data-title="Requêtes SQL" data-alt="Requêtes SQL">
+                            <img src="./assets/sql_1.png" class="w-50" alt="Jeu de données">
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-sm-12 p-2">
+                        <a tabindex="-1" href="./assets/sql_2.png" class="w-50 rounded-2" data-lightbox="image-1" data-title="Requêtes SQL" data-alt="Requêtes SQL">
+                            <img src="./assets/sql_2.png" class="w-50" alt="Jeu de données">
+                        </a>
+                    </div>
+                    <div class="col-12">
+                        <label>
+                            Un index a été positionné sur la colonne « year ».
+                            Laquelle des requêtes ci-dessus est la plus performante ? Pourquoi ?
+                        </label>
+                    </div>
+                    <div class="col">
+                        <textarea oninput="autoGrow(this)" class=" form-control mt-2" rows="1" name="sql_q3" id="sql_q3" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
-            <div class="row text-light bg-primary rounded-3 m-3 p-3">
-                <h2>Question 3</h2>
-                <div class="col-md-6 col-sm-12 p-2">
-                    <img src="./assets/sql_1.png" class="w-50" alt="Jeu de données">
-                </div>
-                <div class="col-md-6 col-sm-12 p-2">
-                    <img src="./assets/sql_2.png" class="w-50" alt="Jeu de données">
-                </div>
-                <div class="col-12">
-                    <label>
-                        Un index a été positionné sur la colonne « year ».
-                        Laquelle des requêtes ci-dessus est la plus performante ? Pourquoi ?
-                    </label>
-                </div>
+            <div class=" row text-center">
                 <div class="col">
-                    <textarea required class="form-control mt-2" rows="1" name="sql_q3"></textarea>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col">
-                    <input class="btn btn-primary mt-3 mb-3" type="submit" name="next" value="Terminer le test">
+                    <input class="btn btn-primary mt-3 mb-3" type="submit" id="submit" name="next" value="Terminer le test">
                 </div>
             </div>
         </form>
     </div>
     <script src="lightbox2-2.11.3/dist/js/lightbox-plus-jquery.js"></script>
+    <script type="text/javascript">
+        console.log(document.getElementById("formSQL"))
+        document.getElementById("formSQL").addEventListener("submit", function(event) {
+            var sql_q1 = document.getElementById("sql_q1").value;
+            var sql_q2 = document.getElementById("sql_q2").value;
+            var sql_q3 = document.getElementById("sql_q3").value;
+            console.log("test")
+            if (sql_q3 == "") {
+                document.getElementById("sql_q3").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question3").scrollIntoView();
+                event.preventDefault();
+            }
+            if (sql_q2 == "") {
+                document.getElementById("sql_q2").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question2").scrollIntoView();
+                event.preventDefault();
+            }
+            if (sql_q1 == "") {
+                document.getElementById("sql_q1").placeholder = "*Vous devez compléter ce champs"
+                document.getElementById("question1").scrollIntoView();
+                event.preventDefault();
+            }
+        });
+
+        function autoGrow(element) {
+            element.style.height = "5px";
+            element.style.height = element.scrollHeight + "px";
+        }
+    </script>
 </body>
 
 </html>
