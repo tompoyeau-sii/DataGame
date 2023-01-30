@@ -27,6 +27,7 @@ switch ($_SESSION['page']) {
                 unset($_SESSION['info']['submit']);
             }
             $_SESSION['page'] = "submit";
+            $_SESSION['fin'] = time();
             header("Location: submit.php");
         }
         break;

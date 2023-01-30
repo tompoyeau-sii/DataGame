@@ -25,9 +25,37 @@ switch ($_SESSION['page']) {
         $prenom = $_SESSION['info']['prenom'];
         $prenom = ucfirst(strtolower($prenom));
 
+        function ConvertisseurTime($Time)
+        {
+            if ($Time < 3600) {
+                $heures = 0;
+
+                if ($Time < 60) {
+                    $minutes = 0;
+                } else {
+                    $minutes = round($Time / 60);
+                }
+
+                $secondes = floor($Time % 60);
+            } else {
+                $heures = round($Time / 3600);
+                $secondes = round($Time % 3600);
+                $minutes = floor($secondes / 60);
+            }
+
+            $secondes2 = round($secondes % 60);
+
+            $TimeFinal = "$heures h $minutes min $secondes2 s";
+            return $TimeFinal;
+        }
+
+        $temps = $_SESSION['fin'] - $_SESSION['debut'];
+        $temps=ConvertisseurTime($temps);
+
 
         $txt = PHP_EOL .
-            'Candidat : ' . $_SESSION['info']['prenom'] . PHP_EOL . PHP_EOL . PHP_EOL .
+            'Candidat : ' . $_SESSION['info']['prenom'] . PHP_EOL . PHP_EOL .
+            'Durée du test : ' . $temps . PHP_EOL .
             'Première partie : Jeu de données ' . PHP_EOL . PHP_EOL .
             'Question 1 : Que pensez-vous du choix d’une table Hbase pour le stockage des données Etats ?' . PHP_EOL .
             'Réponse : ' . $_SESSION['info']['jd_q1'] . PHP_EOL . PHP_EOL .
@@ -58,7 +86,7 @@ switch ($_SESSION['page']) {
 
         file_put_contents('./reponses/' . $_SESSION['info']['prenom'] . '-' . date('d-m-Y') . ".txt", $txt);
 
-        $mails = ["tom.poyeau@sii.fr", "louis.durampart@sii.fr"];
+        $mails = ["tom.poyeau@sii.fr", "nicolas.pettazzoni@sii.fr"];
         foreach ($mails as $personne) {
             $mail = $personne; // Déclaration de l'adresse de destination.
             if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui présentent des bogues.
@@ -137,14 +165,13 @@ switch ($_SESSION['page']) {
             $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
             //==========
             //=====Envoi de l'e-mail.
-            if(mail($mail, $sujet, $message, $header)) {
+            if (mail($mail, $sujet, $message, $header)) {
                 $content = "[" . date('d-m-Y H:i:s') . "] - " . "Les réponses de " . $prenom . "ont bien étaient envoyées à " . $mail . PHP_EOL;
-                file_put_contents("./logMail.txt", $content , FILE_APPEND);
+                file_put_contents("./logMail.txt", $content, FILE_APPEND);
             } else {
                 $content = "[" . date('d-m-Y H:i:s') . "] - " . "Erreur lors de l'envoi des réponses de " . $prenom . " a " . $mail . PHP_EOL;
-                file_put_contents("./logMail.txt", $content , FILE_APPEND);
+                file_put_contents("./logMail.txt", $content, FILE_APPEND);
             }
-
         }
         break;
     default:

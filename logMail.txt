@@ -1,2 +1,12 @@
 [09-01-2023 09:34:43] - Erreur lors de l'envoie des réponses de dzq a tom.poyeau@sii.fr
 [09-01-2023 09:34:45] - Erreur lors de l'envoie des réponses de dzq a louis.durampart@sii.fr
+[30-01-2023 08:40:38] - Erreur lors de l'envoi des réponses de Todz a tom.poyeau@sii.fr
+[30-01-2023 08:41:47] - Erreur lors de l'envoi des réponses de Tomsza a tom.poyeau@sii.fr
+[30-01-2023 08:46:17] - Erreur lors de l'envoi des réponses de Toza a tom.poyeau@sii.fr
+[30-01-2023 08:47:33] - Erreur lors de l'envoi des réponses de Asac a tom.poyeau@sii.fr
+[30-01-2023 08:50:45] - Erreur lors de l'envoi des réponses de Iidjiqzl a tom.poyeau@sii.fr
+[30-01-2023 09:05:49] - Erreur lors de l'envoi des réponses de Tkep a tom.poyeau@sii.fr
+[30-01-2023 09:12:31] - Erreur lors de l'envoi des réponses de Dnizq a tom.poyeau@sii.fr
+[30-01-2023 09:12:33] - Erreur lors de l'envoi des réponses de Dnizq a nicolas.pettazzoni@sii.fr
+[30-01-2023 09:18:34] - Erreur lors de l'envoi des réponses de Todzmq a tom.poyeau@sii.fr
+[30-01-2023 09:18:37] - Erreur lors de l'envoi des réponses de Todzmq a nicolas.pettazzoni@sii.fr

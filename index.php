@@ -26,6 +26,7 @@ switch ($_SESSION['page']) {
             }
             //  Assignation du token de la session
             $_SESSION['page'] = "donnees";
+            $_SESSION['debut'] = time();
             header("Location: donnees.php");
             //Si le captcha est pas ok
           } else {
