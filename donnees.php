@@ -15,6 +15,7 @@ switch ($_SESSION['page']) {
                 unset($_SESSION['info']['next']);
             }
             $_SESSION['page'] = "talend";
+            $_SESSION['finP1'] = time();
             header("Location: talend.php");
         }
         break;

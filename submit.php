@@ -52,10 +52,22 @@ switch ($_SESSION['page']) {
         $temps = $_SESSION['fin'] - $_SESSION['debut'];
         $temps=ConvertisseurTime($temps);
 
+        $tempsP1 = $_SESSION['finP1'] - $_SESSION['debut'];
+        $tempsP1=ConvertisseurTime($tempsP1);
+
+        $tempsP2 = $_SESSION['finP2'] - $_SESSION['finP1'];
+        $tempsP2=ConvertisseurTime($tempsP2);
+
+        $tempsP3 = $_SESSION['fin'] - $_SESSION['finP2'];
+        $tempsP3=ConvertisseurTime($tempsP3);
+
 
         $txt = PHP_EOL .
             'Candidat : ' . $_SESSION['info']['prenom'] . PHP_EOL . PHP_EOL .
-            'Durée du test : ' . $temps . PHP_EOL .
+            'Temps passé sur la partie Jeu de données : ' . $tempsP1 . PHP_EOL .
+            'Temps passé sur la partie Talend : ' . $tempsP2 . PHP_EOL .
+            'Temps passé sur la partie SQL : ' . $tempsP3 . PHP_EOL .
+            'Durée du test totale : ' . $temps . PHP_EOL . PHP_EOL . 
             'Première partie : Jeu de données ' . PHP_EOL . PHP_EOL .
             'Question 1 : Que pensez-vous du choix d’une table Hbase pour le stockage des données Etats ?' . PHP_EOL .
             'Réponse : ' . $_SESSION['info']['jd_q1'] . PHP_EOL . PHP_EOL .

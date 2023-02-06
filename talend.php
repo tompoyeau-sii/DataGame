@@ -27,6 +27,7 @@ switch ($_SESSION['page']) {
             }
             $_SESSION['userToken'] = $_SESSION['token'];
             $_SESSION['page'] = "sql";
+            $_SESSION['finP2'] = time();
             header("Location: sql.php");
         }
         break;
