@@ -1,5 +1,7 @@
-#prenom::placeholder {
-  color: #0059a3;
+body {
+  background-image: url("./bg.png");
+   background-repeat: no-repeat; 
+   background-size: cover;
 }
 
 h1 {
@@ -28,7 +30,6 @@ label {
 
 textarea {
   background-color: transparent !important;
-  color: white !important;
   margin: 0.5rem !important;
 }
 

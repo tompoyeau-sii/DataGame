@@ -41,6 +41,7 @@ switch ($_SESSION['page']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DATA GAME by SII</title>
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="shortcut icon" href="./assets/sii.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -51,8 +52,8 @@ switch ($_SESSION['page']) {
 </head>
 
 <body>
-    <div class="container">
-        <div class="row text-light bg-primary rounded-3 m-3 p-3">
+    <div class="container rounded-4">
+        <div class="row bg-white rounded-3 m-3 p-3">
             <div class="col">
                 <h1>DATA GAMES by SII</h1>
                 <h2 class="w-auto">Partie 1 : Jeu de données</h2>
@@ -67,15 +68,15 @@ switch ($_SESSION['page']) {
             </div>
         </div>
         <form id="formDonnees" action="" method="POST">
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question1">
+            <div class="row rounded-4 bg-white  m-3 p-4" id="question1">
                 <h2>Question 1</h2>
                 <div class="col">
                     <label class="mb-2">Que pensez-vous du choix d’une table Hbase pour le stockage des données Etats ?</label>
-                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q1" rows="1" name="jd_q1" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
+                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q1" rows="1" name="jd_q1" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères spéciaux suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question2">
+            <div class=" row rounded-4 bg-white m-3 p-3" id="question2">
                 <h2>Question 2</h2>
                 <div class="class">
                     <label class="mb-2">Outre le choix d’une table Hbase, la table state_details à pour rowKey la colonne « state », commenter ce choix. Quels sont les impacts de ce design de rowKey ?</label>
@@ -83,15 +84,15 @@ switch ($_SESSION['page']) {
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question3">
+            <div class="row rounded-4 bg-white m-3 p-3" id="question3">
                 <h2>Question 3</h2>
                 <div class="col">
                     <label class="mb-2">Définissez le phénomène de « hotspotting » ?</label>
-                    <textarea oninput="autoGrow(this)" class=" holder form-control" id="jd_q3" rows="1" name="jd_q3"  pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
+                    <textarea oninput="autoGrow(this)" class=" holder form-control" id="jd_q3" rows="1" name="jd_q3" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question4">
+            <div class=" row rounded-4 bg-white m-3 p-3" id="question4">
                 <h2>Question 4</h2>
                 <div class="col">
                     <label class="mb-2">Comment éviter ce phénomène de « hotspotting » ? (citez 3 techniques)</label>
@@ -99,16 +100,16 @@ switch ($_SESSION['page']) {
                 </div>
             </div>
 
-            <div class="row bg-primary rounded-3 m-3 p-3 text-light" id="question5">
+            <div class="row rounded-4 bg-white m-3 p-3 " id="question5">
                 <h2>Question 5</h2>
                 <div class="col">
                     <label class="mb-2">Comment redéfiniriez-vous la rowKey ?</label>
-                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q5" rows="1" name="jd_q5"  pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
+                    <textarea oninput="autoGrow(this)" class=" form-control" id="jd_q5" rows="1" name="jd_q5" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                 </div>
             </div>
-            <div class="row text-center">
+            <div class=" row text-center">
                 <div class="col">
-                    <input class="btn btn-primary mt-3 mb-3" type="submit" id="submit" name="next" value="Suivant">
+                    <input class="btn btn-light mt-3 mb-3" type="submit" id="submit" name="next" value="Suivant">
                 </div>
             </div>
         </form>

@@ -50,16 +50,16 @@ switch ($_SESSION['page']) {
         }
 
         $temps = $_SESSION['fin'] - $_SESSION['debut'];
-        $temps=ConvertisseurTime($temps);
+        $temps = ConvertisseurTime($temps);
 
         $tempsP1 = $_SESSION['finP1'] - $_SESSION['debut'];
-        $tempsP1=ConvertisseurTime($tempsP1);
+        $tempsP1 = ConvertisseurTime($tempsP1);
 
         $tempsP2 = $_SESSION['finP2'] - $_SESSION['finP1'];
-        $tempsP2=ConvertisseurTime($tempsP2);
+        $tempsP2 = ConvertisseurTime($tempsP2);
 
         $tempsP3 = $_SESSION['fin'] - $_SESSION['finP2'];
-        $tempsP3=ConvertisseurTime($tempsP3);
+        $tempsP3 = ConvertisseurTime($tempsP3);
 
 
         $txt = PHP_EOL .
@@ -67,7 +67,7 @@ switch ($_SESSION['page']) {
             'Temps passé sur la partie Jeu de données : ' . $tempsP1 . PHP_EOL .
             'Temps passé sur la partie Talend : ' . $tempsP2 . PHP_EOL .
             'Temps passé sur la partie SQL : ' . $tempsP3 . PHP_EOL .
-            'Durée du test totale : ' . $temps . PHP_EOL . PHP_EOL . 
+            'Durée du test totale : ' . $temps . PHP_EOL . PHP_EOL .
             'Première partie : Jeu de données ' . PHP_EOL . PHP_EOL .
             'Question 1 : Que pensez-vous du choix d’une table Hbase pour le stockage des données Etats ?' . PHP_EOL .
             'Réponse : ' . $_SESSION['info']['jd_q1'] . PHP_EOL . PHP_EOL .
@@ -200,6 +200,7 @@ switch ($_SESSION['page']) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DATA GAME by SII</title>
+    <link rel="shortcut icon" href="./assets/sii.png">
     <link rel="stylesheet" href="./assets/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -211,7 +212,7 @@ switch ($_SESSION['page']) {
 
 <body>
     <div class="container">
-        <div class="row text-light bg-primary rounded-3 m-3 p-3">
+        <div class="row bg-white rounded-3 m-3 p-3">
             <div class="col-sm-9 text-light">
                 <div class="row">
                     <div class="col">

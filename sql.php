@@ -47,6 +47,7 @@ switch ($_SESSION['page']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DATA GAME by SII</title>
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="shortcut icon" href="./assets/sii.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -58,14 +59,14 @@ switch ($_SESSION['page']) {
 
 <body>
     <div class="container">
-        <div class="row text-light bg-primary rounded-3 m-3 p-3">
+        <div class="row  bg-white rounded-3 m-3 p-3">
             <div class="col">
                 <h1>DATA GAMES by SII</h1>
                 <h2>Partie 3 : SQL</h2>
             </div>
         </div>
         <form action="" id="formSQL" method="POST">
-            <div id="question1" class="row text-light bg-primary rounded-3 m-3 p-3">
+            <div id="question1" class="row  bg-white rounded-3 m-3 p-3">
                 <h2>Question 1</h2>
                 <div class="col">
                     <label>Décrivez dans quels ordres les clauses suivantes sont exécutées :</label>
@@ -82,7 +83,7 @@ switch ($_SESSION['page']) {
                     </div>
                 </div>
             </div>
-            <div id=" question2" class="row text-light bg-primary rounded-3 m-3 p-3">
+            <div id=" question2" class="row  bg-white rounded-3 m-3 p-3">
                 <h2>Question 2</h2>
                 On souhaite ici récupérer les noms les plus populaires dans les années 90 pour chaque état.
                 Une requête première requête SQL fonctionnelle a été réalisée ci-dessous :
@@ -98,7 +99,7 @@ switch ($_SESSION['page']) {
                     <textarea oninput="autoGrow(this)" class="form-control" rows="1" name="sql_q2" id="sql_q2" pattern="[a-zA-ZÀ-ÿ0-9 -.!:;,\" ]+" title="Seuls les caractères suivants sont autorisés pour ce champs: -.!:;,\""></textarea>
                     </div>
                 </div>
-                <div id="question3" class="row text-light bg-primary rounded-3 m-3 p-3">
+                <div id="question3" class="row  bg-white rounded-3 m-3 p-3">
                     <h2>Question 3</h2>
                     <div class="col-md-6 col-sm-12 p-2">
                         <a tabindex="-1" href="./assets/sql_1.png" class="w-50 rounded-2" data-lightbox="image-1" data-title="Requêtes SQL" data-alt="Requêtes SQL">
@@ -122,7 +123,7 @@ switch ($_SESSION['page']) {
             </div>
             <div class=" row text-center">
                 <div class="col">
-                    <input class="btn btn-primary mt-3 mb-3" type="submit" id="submit" name="next" value="Terminer le test">
+                    <input class="btn btn-light mt-3 mb-3" type="submit" id="submit" name="next" value="Terminer le test">
                 </div>
             </div>
         </form>
