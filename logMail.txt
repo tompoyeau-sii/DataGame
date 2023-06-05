@@ -14,3 +14,7 @@
 [06-02-2023 08:33:53] - Erreur lors de l'envoi des réponses de Mop a nicolas.pettazzoni@sii.fr
 [05-06-2023 09:47:00] - Erreur lors de l'envoi des réponses de Test a tom.poyeau@sii.fr
 [05-06-2023 09:47:02] - Erreur lors de l'envoi des réponses de Test a nicolas.pettazzoni@sii.fr
+[05-06-2023 09:55:52] - Erreur lors de l'envoi des réponses de Dza a tom.poyeau@sii.fr
+[05-06-2023 09:55:54] - Erreur lors de l'envoi des réponses de Dza a nicolas.pettazzoni@sii.fr
+[05-06-2023 09:56:41] - Erreur lors de l'envoi des réponses de Dzqd a tom.poyeau@sii.fr
+[05-06-2023 09:56:43] - Erreur lors de l'envoi des réponses de Dzqd a nicolas.pettazzoni@sii.fr

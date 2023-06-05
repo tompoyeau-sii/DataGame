@@ -213,7 +213,7 @@ switch ($_SESSION['page']) {
 <body>
     <div class="container">
         <div class="row bg-white rounded-3 m-3 p-3">
-            <div class="col-sm-9 text-light">
+            <div class="col-sm-9">
                 <div class="row">
                     <div class="col">
                         <h1 style="font-weight: 700;">
